@@ -139,9 +139,9 @@ $git clone https://github.com/APCVSRepo/sdl_implementation_reference.git
 ```
 $cd sdl_implementation_reference
 $git checkout sdl_rk3288_dependency_library
-$tar -xvf tools/arm-eabi-4.8.tar.gz
-$mv arm-eabi-4.8/ /opt/
-$echo "export PATH=$PATH:/opt/arm-eabi-4.8/bin" >> ~/.bashrc
+$tar -xvf rk3288_dependence/tools/arm-eabi-4.8.tar.gz
+$sudo mv arm-eabi-4.8/ /opt/
+$echo "export PATH=\$PATH:/opt/arm-eabi-4.8/bin" >> ~/.bashrc
 $source ~/.bashrc
 ```
 ### 2.2 Install dependence
@@ -151,7 +151,7 @@ $sudo apt-get install lib32ncurses5 lib32z1 lib32stdc++6 libssl-dev
 
 ### 2.3 Install mkbootimg
 ```
-$cd tools/rockchip-mkbootimg
+$cd rk3288_dependence/tools/rockchip-mkbootimg
 $make
 $sudo make install
 ```
@@ -211,7 +211,7 @@ $sudo cp sources.list linux-rootfs/etc/apt/sources.list
 ```
 ### 3.7 Add boot service
 ```
-sudo cp -r rootfs_bootservice/* linux-rootfs
+$sudo cp -r rootfs_bootservice/* linux-rootfs
 ```
 ### 3.8 Mount rootfs
 ```
@@ -373,8 +373,8 @@ $./mkimage.sh linux-rootfs linux-rootfs.img
 After this, linux-rootfs.img will be created.
 ## 4 Make update image
 ```
-$cd rock-tool
-$cp ../../linux-boot.img Image
+$cd rk3288_dependence/rock-tool
+$cp ../../../linux-boot.img Image
 $cp ../linux-rootfs/linux-rootfs.img Image
 $./mkupdate.sh
 ```
