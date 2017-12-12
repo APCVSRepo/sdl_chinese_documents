@@ -1,0 +1,3 @@
+target 'HelloSDL_menu' do
+  pod ‘SmartDeviceLink-iOS’, ‘~> 5.0.0’
+end
