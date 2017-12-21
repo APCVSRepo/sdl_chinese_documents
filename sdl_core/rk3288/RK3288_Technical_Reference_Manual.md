@@ -130,11 +130,17 @@ This manual is for the development of linux on RK3288 board.
 </table>
 
 ## 2 Make boot image
-### 2.1 Get essential packages
+### 2.1 Create workspace dircectory
 ```
+$mkdir Workspace
+```
+_Workspace_ is defined by yourself. Assume all operations are executed under this directory.
+### 2.2 Get essential packages
+```
+$cd Workspace
 $git clone https://github.com/APCVSRepo/sdl_implementation_reference.git
 ```
-### 2.1 Install compiler for kernel
+### 2.3 Install compiler for kernel
 
 ```
 $cd sdl_implementation_reference
@@ -144,29 +150,31 @@ $sudo mv arm-eabi-4.8/ /opt/
 $echo "export PATH=\$PATH:/opt/arm-eabi-4.8/bin" >> ~/.bashrc
 $source ~/.bashrc
 ```
-### 2.2 Install dependence
+Make sure this step be operated only one time.
+### 2.4 Install dependence
 ```
 $sudo apt-get install lib32ncurses5 lib32z1 lib32stdc++6 libssl-dev
 ```
 
-### 2.3 Install mkbootimg
+### 2.5 Install mkbootimg
 ```
 $cd rk3288_dependence/tools/rockchip-mkbootimg
 $make
 $sudo make install
 ```
-### 2.4. Build kernel
+### 2.6 Build kernel
 ```
 $cd sdl_implementation_reference
 $git checkout sdl_rk3288_kernel
 $export ARCH=arm
 $export CROSS_COMPILE=arm-eabi-
 $make rockchip_linux_defconfig
-$make rk3288-firefly.img -j4
+$make rk3288-firefly-lvds.img -j4
 ```
-VGA support as default, If want to support lvds, please use rk3288-firefly-lvds.img instead.
-### 2.5 Build initrd
+LVDS support as default, If want to support vga, please use rk3288-firefly.img instead.
+### 2.7 Build initrd
 ```
+$cd Workspace
 $git clone https://github.com/TeeFirefly/initrd.git
 $cd initrd
 $git checkout for-kernel_4.4
@@ -363,6 +371,9 @@ $./ch-mount.sh -u linux-rootfs
 If unmount failed, please reboot your computer.
 ##### 3.11.2.5 Enable autologin for xubuntu
 If you do not want to login automatically, please ignore this step.
+
+If you have restart the computer, please cd to "rk3288_dependence/linux-rootfs" again.
+
 ```
 $sudo cp rootfs_autologin/autologin.conf linux-rootfs/etc/lightdm/lightdm.conf.d/
 ```
@@ -394,6 +405,7 @@ Steps:
 + Free the reset button and hold on the recovery button for more than 2 seconds.
 + Now, the board entry the loader model, and use follow command to upgrade:
 ```
+$cd rock-tool
 $sudo upgrade_tool uf update.img
 ```
 + Please wait, after flash success, the board will reboot automatically.
